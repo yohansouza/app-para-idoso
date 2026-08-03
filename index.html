@@ -1,1 +1,381 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navegação Segura - Guia Digital da Terceira Idade</title>
+  <style>
+    /* RESET E VARIÁVEIS DE ACESSIBILIDADE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cor-fundo: #FAFAFA;
+      --cor-texto: #1A1A1A;
+      --cor-primaria: #004B87;
+      --cor-primaria-hover: #003366;
+      --cor-destaque: #D32F2F;
+      --cor-destaque-hover: #B71C1C;
+      --cor-card: #FFFFFF;
+      --cor-borda: #CCCCCC;
+      --cor-fundo-suave: #EBF3FA;
+      --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      font-family: var(--fonte-principal);
+      font-size: 1.25rem; /* Fonte ampliada por padrão (20px) */
+      line-height: 1.6;
+    }
+
+    /* FOCO VISÍVEL PARA NAVEGAÇÃO POR TECLADO */
+    a:focus, button:focus, input:focus {
+      outline: 4px solid #FFD700;
+      outline-offset: 3px;
+    }
+
+    /* CABEÇALHO E NAVEGAÇÃO */
+    header {
+      background-color: var(--cor-primaria);
+      color: #FFFFFF;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+    }
+
+    nav a:hover {
+      background-color: var(--cor-primaria-hover);
+      text-decoration: underline;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* SEÇÃO 1: INÍCIO / BANNER */
+    .hero-banner {
+      background-color: var(--cor-fundo-suave);
+      border: 3px solid var(--cor-primaria);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .hero-banner h1 {
+      font-size: 2.5rem;
+      color: var(--cor-primaria);
+      margin-bottom: 1rem;
+    }
+
+    .hero-banner p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-emergencia {
+      display: inline-block;
+      background-color: var(--cor-destaque);
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 1.2rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-emergencia:hover {
+      background-color: var(--cor-destaque-hover);
+      transform: scale(1.03);
+    }
+
+    /* SEÇÕES EM GERAL */
+    section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 100px; /* Para rolagem suave com menu fixo */
+    }
+
+    .titulo-secao {
+      font-size: 2rem;
+      color: var(--cor-primaria);
+      border-bottom: 4px solid var(--cor-primaria);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* GRID DE CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--cor-card);
+      border: 2px solid var(--cor-borda);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      color: var(--cor-primaria);
+      margin-bottom: 0.8rem;
+    }
+
+    .card p, .card ul {
+      font-size: 1.2rem;
+    }
+
+    .card ul {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .card li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* ESTILO ESPECÍFICO PARA GOLPES (ALERTA) */
+    .card-golpe {
+      border-left: 8px solid var(--cor-destaque);
+    }
+
+    .tag-alerta {
+      display: inline-block;
+      background-color: #FFEBEE;
+      color: var(--cor-destaque);
+      font-weight: bold;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* FOOTER / RODAPÉ */
+    footer {
+      background-color: var(--cor-primaria);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+
+    footer p {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* RESPONSIVIDADE PARA TELAS MENORES */
+    @media (max-width: 600px) {
+      body {
+        font-size: 1.15rem;
+      }
+
+      .hero-banner h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero-banner p {
+        font-size: 1.2rem;
+      }
+
+      .btn-emergencia {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.3rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGAÇÃO -->
+  <header role="banner">
+    <div class="nav-container">
+      <a href="#inicio" class="logo" aria-label="Página Inicial da Navegação Segura">
+        🛡️ Navegação Segura
+      </a>
+      <nav role="navigation" aria-label="Menu Principal">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#dicas">Dicas</a></li>
+          <li><a href="#direitos">Direitos</a></li>
+          <li><a href="#golpes">Golpes</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo-principal">
+
+    <!-- SEÇÃO 1: INÍCIO (BANNER) -->
+    <section id="inicio" class="hero-banner" aria-labelledby="titulo-banner">
+      <h1 id="titulo-banner">Sua segurança na internet é nossa prioridade</h1>
+      <p>Aprenda de forma simples e direta a navegar na internet, usar redes sociais e fazer pagamentos sem medo e com total proteção.</p>
+      
+      <!-- BOTÃO DE AJUDA EM DESTAQUE -->
+      <a href="#ajuda-emergencia" class="btn-emergencia" role="button">
+        🆘 Preciso de Ajuda / Acho que Sofri um Golpe
+      </a>
+    </section>
+
+    <!-- SEÇÃO 2: DICAS DE SEGURANÇA DIGITAL -->
+    <section id="dicas" aria-labelledby="titulo-dicas">
+      <h2 id="titulo-dicas" class="titulo-secao">💡 Dicas para Navegar com Segurança</h2>
+      <div class="cards-grid">
+        
+        <article class="card">
+          <h3>Crie Senhas Fortes</h3>
+          <p>Evite usar datas de nascimento ou nomes de parentes. Combine letras, números e símbolos simples. Guarde suas senhas em um caderno em casa, em local seguro.</p>
+        </article>
+
+        <article class="card">
+          <h3>Cuidado com Links</h3>
+          <p>Não clique em links enviados por desconhecidos por SMS, WhatsApp ou e-mail. Se for de um banco, prefira abrir o aplicativo oficial direto no celular.</p>
+        </article>
+
+        <article class="card">
+          <h3>Confirme as Informações</h3>
+          <p>Sempre que receber uma notícia estranha ou um pedido de dinheiro urgente de algum familiar, ligue diretamente para a pessoa antes de tomar qualquer atitude.</p>
+        </article>
+
+        <article class="card">
+          <h3>Navegue apenas em Sites Seguros</h3>
+          <p>Verifique se o site possui o desenho de um <strong>cadeado fechado</strong> ao lado do endereço na barra de navegação antes de digitar seus dados.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: DIREITOS DA PESSOA IDOSA NA INTERNET -->
+    <section id="direitos" aria-labelledby="titulo-direitos">
+      <h2 id="titulo-direitos" class="titulo-secao">⚖️ Seus Direitos na Internet</h2>
+      <div class="cards-grid">
+        
+        <article class="card">
+          <h3>Proteção contra Fraudes</h3>
+          <p>O Estatuto da Pessoa Idosa e o Código de Defesa do Consumidor garantem que bancos e empresas de tecnologia devem oferecer sistemas seguros e proteger seus clientes de fraudes operacionais.</p>
+        </article>
+
+        <article class="card">
+          <h3>Privacidade dos seus Dados</h3>
+          <p>Pela Lei Geral de Proteção de Dados (LGPD), nenhuma empresa pode vender ou compartilhar seus dados pessoais, como CPF e número de telefone, sem a sua autorização expressa.</p>
+        </article>
+
+        <article class="card">
+          <h3>Atendimento Prioritário</h3>
+          <p>Se você precisar resolver um problema de fraude ou cobrança indevida no banco ou operadora de telefone, você tem direito a atendimento presencial ou telefônico prioritário e simplificado.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: COMO IDENTIFICAR E EVITAR GOLPES -->
+    <section id="golpes" aria-labelledby="titulo-golpes">
+      <h2 id="titulo-golpes" class="titulo-secao">⚠️ Identifique e Evite Golpes Comuns</h2>
+      <div class="cards-grid">
+
+        <article class="card card-golpe">
+          <span class="tag-alerta">MUITO COMUM</span>
+          <h3>Golpe do Falso Familiar no WhatsApp</h3>
+          <p><strong>Como é:</strong> Alguém envia mensagem com um número novo usando a foto de um filho ou neto, dizendo que mudou de número e precisa de um PIX urgente.</p>
+          <p><strong>O que fazer:</strong> Nunca transfira o dinheiro. Ligue para o número antigo do seu familiar para confirmar.</p>
+        </article>
+
+        <article class="card card-golpe">
+          <span class="tag-alerta">CUIDADO</span>
+          <h3>Golpe do Falso Funcionário de Banco</h3>
+          <p><strong>Como é:</strong> Uma pessoa liga dizendo que sua conta foi invadida e pede que você confirme senhas, dados ou faça uma "transferência de teste".</p>
+          <p><strong>O que fazer:</strong> Desligue imediatamente. O banco nunca liga pedindo senhas ou transferências.</p>
+        </article>
+
+        <article class="card card-golpe">
+          <span class="tag-alerta">ATENÇÃO</span>
+          <h3>Falsas Promoções e Prêmios</h3>
+          <p><strong>Como é:</strong> Mensagens dizendo que você ganhou um prêmio, uma cesta de produtos ou que seu nome está sujo, pedindo para clicar em um link.</p>
+          <p><strong>O que fazer:</strong> Apague a mensagem sem clicar em nada. Não compartilhe com seus amigos.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ÁREA DE AJUDA E EMERGÊNCIA -->
+    <section id="ajuda-emergencia" class="card" style="background-color: #FFEBEE; border-color: var(--cor-destaque);">
+      <h2 style="color: var(--cor-destaque); margin-bottom: 1rem;">🆘 O que fazer se você caiu em um golpe?</h2>
+      <ul>
+        <li><strong>1. Avise um familiar ou pessoa de sua confiança imediatamente.</strong></li>
+        <li><strong>2. Ligue para o seu banco:</strong> Peça o bloqueio de cartões e das senhas de acesso.</li>
+        <li><strong>3. Registre um Boletim de Ocorrência (BO):</strong> Vá até a Delegacia da Polícia Civil mais próxima ou peça ajuda para fazer pela internet.</li>
+        <li><strong>4. Ligue para o Disque 100:</strong> Canal público e gratuito que protege os direitos da pessoa idosa.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer role="contentinfo">
+    <p><strong>Guia de Segurança Digital para a Terceira Idade</strong></p>
+    <p>Desenvolvido focado em acessibilidade, leitura fácil e proteção no ambiente digital.</p>
+  </footer>
+
+</body>
+</html>
