@@ -25,6 +25,36 @@
       --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+    /* BARRA DE ACESSIBILIDADE */
+    .barra-acessibilidade {
+      background-color: #111;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-acessibilidade {
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-acessibilidade:hover {
+      background: #555;
+    }
+
     body {
       background-color: var(--cor-fundo);
       color: var(--cor-texto);
@@ -306,10 +336,21 @@
         flex-direction: column;
         align-items: flex-start;
       }
+
+      .barra-acessibilidade {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- MENU DE ACESSIBILIDADE -->
+  <div class="barra-acessibilidade" role="region" aria-label="Ferramentas de acessibilidade">
+    <button type="button" class="btn-acessibilidade" id="btn-aumentar" aria-label="Aumentar fonte">A+</button>
+    <button type="button" class="btn-acessibilidade" id="btn-diminuir" aria-label="Diminuir fonte">A-</button>
+    <button type="button" class="btn-acessibilidade" id="btn-ouvir" aria-label="Ouvir página em voz alta">🔊 Ouvir Página</button>
+  </div>
 
   <!-- BARRA DE NAVEGAÇÃO -->
   <header role="banner">
@@ -486,6 +527,48 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('ativo')) {
         fecharModal();
+      }
+    });
+
+    /* CONTROLES DE ACESSIBILIDADE */
+    let tamanhoTamanhoAtual = 100;
+    const btnAumentar = document.getElementById('btn-aumentar');
+    const btnDiminuir = document.getElementById('btn-diminuir');
+    const btnOuvir = document.getElementById('btn-ouvir');
+
+    btnAumentar.addEventListener('click', () => {
+      if (tamanhoTamanhoAtual < 150) {
+        tamanhoTamanhoAtual += 10;
+        document.body.style.fontSize = (1.25 * (tamanhoTamanhoAtual / 100)) + 'rem';
+      }
+    });
+
+    btnDiminuir.addEventListener('click', () => {
+      if (tamanhoTamanhoAtual > 80) {
+        tamanhoTamanhoAtual -= 10;
+        document.body.style.fontSize = (1.25 * (tamanhoTamanhoAtual / 100)) + 'rem';
+      }
+    });
+
+    btnOuvir.addEventListener('click', () => {
+      if ('speechSynthesis' in window) {
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+          btnOuvir.textContent = '🔊 Ouvir Página';
+        } else {
+          const texto = document.getElementById('conteudo-principal').innerText;
+          const mensagem = new SpeechSynthesisUtterance(texto);
+          mensagem.lang = 'pt-BR';
+          
+          mensagem.onend = () => {
+            btnOuvir.textContent = '🔊 Ouvir Página';
+          };
+
+          window.speechSynthesis.speak(mensagem);
+          btnOuvir.textContent = '⏹️ Parar Leitura';
+        }
+      } else {
+        alert('Desculpe, seu navegador não suporta leitura em voz alta.');
       }
     });
   </script>
