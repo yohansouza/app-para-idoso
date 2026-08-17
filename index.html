@@ -531,22 +531,22 @@
     });
 
     /* CONTROLES DE ACESSIBILIDADE */
-    let tamanhoTamanhoAtual = 100;
+    let escalaAtual = 100;
     const btnAumentar = document.getElementById('btn-aumentar');
     const btnDiminuir = document.getElementById('btn-diminuir');
     const btnOuvir = document.getElementById('btn-ouvir');
 
     btnAumentar.addEventListener('click', () => {
-      if (tamanhoTamanhoAtual < 150) {
-        tamanhoTamanhoAtual += 10;
-        document.body.style.fontSize = (1.25 * (tamanhoTamanhoAtual / 100)) + 'rem';
+      if (escalaAtual < 160) {
+        escalaAtual += 10;
+        document.documentElement.style.fontSize = escalaAtual + '%';
       }
     });
 
     btnDiminuir.addEventListener('click', () => {
-      if (tamanhoTamanhoAtual > 80) {
-        tamanhoTamanhoAtual -= 10;
-        document.body.style.fontSize = (1.25 * (tamanhoTamanhoAtual / 100)) + 'rem';
+      if (escalaAtual > 80) {
+        escalaAtual -= 10;
+        document.documentElement.style.fontSize = escalaAtual + '%';
       }
     });
 
